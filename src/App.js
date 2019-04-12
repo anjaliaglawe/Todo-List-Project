@@ -8,14 +8,34 @@ class App extends Component {
     {id:uuid(),title:'make breakfast'}
           ],
           id: uuid(),
-          item:'',
+          item:"",
           editItem: false
 
   }
+
   handleChange = (e) =>{
-    console.log('handle change');
+    this.setState({
+      item: e.target.value
+    });
   }
   handleSubmit = (e) =>{
+    e.preventDefault();
+    const newItem = {
+      id: this.state.id,
+      title: this.state.item
+    };
+    const updatedItems = [...this.state.items, newItem];    this.setState({
+      items: updatedItems,
+      item:'',
+      id: uuid(),
+      editItem: false
+    });
+    this.setState({
+      item: "",
+      id: uuid(),
+      items: updatedItems,
+
+    }, ()=> console.log(this.state));
     console.log('handle handleSubmit');
   }
   clearList = (e) =>{
@@ -28,6 +48,7 @@ class App extends Component {
     console.log(`handle handleedit ${id}`);
   }
   render() {
+  
     return (
       <div>
         <div className="container">
